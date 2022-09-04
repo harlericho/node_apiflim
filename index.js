@@ -6,8 +6,9 @@ const dotenv = require("dotenv");
 dotenv.config();
 const application = express();
 const port = process.env.PORT || 5000;
-application.set("port", port);
+require("./db");
 
+application.set("port", port);
 application.use(morgan("dev"));
 application.use(cors());
 application.use(express.json());
