@@ -1,5 +1,5 @@
 const Sequelize = require("sequelize");
-const filModel = require("./models/film");
+const FilmModel = require("./models/film");
 const sequelize = new Sequelize(
   process.env.DB_SCHEMA,
   process.env.DB_USER,
@@ -9,7 +9,7 @@ const sequelize = new Sequelize(
     dialect: process.env.DB_DIALECT,
   }
 );
-const film = filModel(sequelize, Sequelize);
+const Film = FilmModel(sequelize, Sequelize);
 sequelize
   .sync({ force: false })
   .then(() => {
@@ -20,5 +20,5 @@ sequelize
   });
 
 module.exports = {
-  film,
+  Film,
 };

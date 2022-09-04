@@ -25,7 +25,7 @@ module.exports = (sequelize, type) => {
         notEmpty: true,
       },
     },
-    diretor: {
+    director: {
       type: type.STRING(50),
       allowNull: false,
       validate: {
