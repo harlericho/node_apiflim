@@ -17,7 +17,7 @@ router.get("/:id", async (req, res) => {
 router.post("/", async (req, res) => {
   await Film.create(req.body);
   res.status(201).json({
-    message: "Create film",
+    message: "Created film",
   });
 });
 router.put("/:id", async (req, res) => {
