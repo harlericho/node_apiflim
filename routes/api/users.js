@@ -2,6 +2,8 @@ const router = require("express").Router();
 const bcrypt = require("bcryptjs");
 const { User } = require("../../db");
 const { check, validationResult } = require("express-validator");
+const moment = require("moment");
+const jwt = require("jwt-simple");
 router.post(
   "/register",
   [
@@ -40,4 +42,34 @@ router.post(
     });
   }
 );
+router.post("/login", async (req, res) => {
+  const user = await User.findOne({
+    where: { email: req.body.email },
+  });
+  if (user) {
+    const dataPassword = bcrypt.compareSync(req.body.password, user.password);
+    if (dataPassword) {
+      res.status(201).json({
+        message: createToken(user),
+      });
+    } else {
+      res.status(203).json({
+        message: "Passwords are not the same..!",
+      });
+    }
+  } else {
+    res.status(203).json({
+      message: "User does not exist..!",
+    });
+  }
+});
+
+const createToken = (data) => {
+  const info = {
+    userId: data.id,
+    createdAt: moment().unix(),
+    expiredAt: moment().add(2, "minutes").unix(),
+  };
+  return jwt.encode(info, process.env.KEY_SECRET);
+};
 module.exports = router;
