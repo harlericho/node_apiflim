@@ -1,5 +1,5 @@
 module.exports = (sequelize, type) => {
-  return sequelize.define(process.env.DB_TABLE, {
+  return sequelize.define(process.env.DB_TABLE_FILM, {
     id: {
       type: type.INTEGER,
       primaryKey: true,
